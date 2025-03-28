@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bucket list</title>
+</html>
+    <style>
+    body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: skyblue;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: lightcyan;
+}
+button {
+     padding: 8px 15px; 
+    }
+ul {
+     list-style: none; padding: 0;
+     }
+li {
+     padding: 8px; border-bottom:1px 
+     solid #eee;
+     display: flex; 
+     justify-content:space-between; 
+    }
+.delete-btn { 
+    color: red; cursor: pointer; 
+}
+    </style>
+</head>
+<body>
+    <h1>Bucket List</h1>
+    <div id="container">
+        <input type="text" id="itemInput" placeholder="Add a new item">
+        <button onclick="addItem()">Add item</button>
+        <ul id="itemList"></ul>
+    </div>
+
+    <script>
+        let bucketList = [];
+
+        function addItem() {
+            const input = document.getElementById('itemInput');
+            const item = input.value.trim();
+            if (item) {
+                bucketList.push(item);
+                input.value = '';
+                renderList();
+            }
+        }
+
+        function removeItem(index) {
+            bucketList.splice(index, 1);
+            renderList();
+        }
+
+        function renderList() {
+            const listElement = document.getElementById('itemList');
+            listElement.innerHTML = '';
+            bucketList.forEach((item, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    ${item}
+                    <span class="delete-btn" onclick="removeItem(${index})">Delete</span>
+                `;
+                listElement.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
